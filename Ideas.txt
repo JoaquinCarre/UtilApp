@@ -1,0 +1,4 @@
+RELOJ
+Que todo el tiempo lea el Date.now() o método para saber la hora actual del usuario, con un setInterval(fnLeerTiempo,1000) cada 1 segundo y mueva la agua del reloj
+
+La agua del reloj tendrá una posición absoluta del reloj relativo para centrarlo y girará teniendo un extremos fijo en un punto y el otro en cierto grado según vaya pasando el segundo del setInterval. Cuando la aguja llegué a la posición del 12 en el reloj que aumente 1 minuto y cuando llegue el minutero a la posición de las 12 que aumente 1 hora el horero.

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>UtilApp - La App que te soluciona problemas</title>
+</head>
+<body>
+    <header>
+        <div>
+            <script src="https://cdn.lordicon.com/lordicon.js"></script>
+            <lord-icon
+                src="https://cdn.lordicon.com/nfuackpv.json"
+                trigger="hover"
+                colors="primary:#ffffff,secondary:#1F2937"
+                style="width:30px;height:30px">
+            </lord-icon>
+        </div>
+        <div>
+            UtilApp - Creada para mi portfolio
+        </div>
+    </header>
+    <main>
+        <section class="apps" id="apps">
+            <div class="divApps tareas" id="tareas">
+                <div class="iconoTareas">
+                    📋
+                </div>
+                <div>
+                    Lista de Tareas
+                </div>
+            </div>
+            <div class="divApps calc" id="calc">
+                <div class="iconoCalc">
+                    🧮
+                </div>
+                <div>
+                    Calculadora
+                </div>
+            </div>
+            <div class="divApps reloj" id="reloj">
+                <div class="iconoReloj">
+                    ⏰
+                </div>
+                <div>
+                    Reloj
+                </div>
+            </div>
+            <div class="divApps pintar" id="pintar">
+                <div class="iconoPintar">
+                    🎨
+                </div>
+                <div>
+                    Pintar
+                </div>
+            </div>
+        </section>
+        <section class="seccionTareas none" id="seccionTareas">
+            <div class="boxListaTitulo"><h1>Gestor de Tareas</h1></div>
+            <div class="boxLista">
+                <div>
+                    <div class="tituloLista"><h2>Nueva Tarea</h2></div>
+                    <input type="text" class="inputAgregar" id="inputAgregar"><button class="botonAgregar" id="botonAgregar">+</button>
+                </div>
+                <div>
+                    <div class="tituloLista"><h2>Lista de Tareas</h2></div>
+                    <div class="itemsLista" id="itemsLista"></div>
+                </div>
+            </div>
+            <div class="botonMPTareas">
+                <button class="botonMP" id="menuPrincipalTareas">Volver al Menu Principal</button>
+            </div>
+        </section>
+        <section class="seccionCalc none" id="seccionCalc">
+            <div>Calculadora</div>
+            <div class="botonMPCalc">
+                <button class="botonMP" id="menuPrincipalCalc">Volver al Menu Principal</button>
+            </div>
+        </section>
+        <section class="seccionReloj none" id="seccionReloj">
+            <div>Reloj</div>
+            <div class="botonMPReloj">
+                <button class="botonMP" id="menuPrincipalReloj">Volver al Menu Principal</button>
+            </div>
+        </section>
+        <section class="seccionPintar none" id="seccionPintar">
+            <div>Pintar</div>
+            <div class="botonMPPintar">
+                <button class="botonMP" id="menuPrincipalPintar">Volver al Menu Principal</button>
+            </div>
+        </section>
+    </main>
+    <footer>© 2025 - Joaquín Carré</footer>
+    <script src="/index.js"></script>
+</body>
+</html>
