@@ -115,7 +115,7 @@ main {
 
 .divRelative {
     position: relative;
-    height: 40px;
+    min-height: 40px;
 }
 
 .inputAgregar {
@@ -140,6 +140,7 @@ main {
     display: flex;
     align-items: center;
     gap: 5px;
+    padding: 10px;
 }
 
 .iconoAdvertencia {
@@ -162,7 +163,31 @@ main {
     display: block;
 }
 
+.botonDesplegar {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: 0px solid #000;
+    font-weight: 600;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+}
+
+.botonRetraer {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: 0px solid #000;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+}
+
 .itemsHistorial {
+    background-color: aliceblue;
+    padding: 10px;
+    color: #565656;
     overflow: auto; 
     min-height: 0; /* para que no se salga del div padre en altura */
     min-width: 0; /* para que no se salga del div padre en ancho */
@@ -232,4 +257,45 @@ footer {
     display: none;
 }
 
+.block {
+    display: block;
+}
+
 /*Elementos RESPONSIVE*/
+@media (min-width:700px) {
+    .botonDesplegar {
+        display: none;
+    }
+
+    .itemsHistorial {
+        display: block;
+    }
+}
+
+@media (max-width:700px) {
+    .tituloLista{
+        font-size: 12px;
+    }
+
+    .tituloHistorial {
+        font-size: 12px;
+        padding: 0;
+    }
+
+    .iconoAdvertencia {
+        display: none;
+    }
+
+    .itemsHistorial {
+        font-size: 12px;
+    }
+
+    .itemsHistorial {
+        max-height: 100px;
+    }
+
+    .boxLista {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+}

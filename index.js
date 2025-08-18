@@ -28,7 +28,7 @@ const imprimirLista = () => {
     let listaDeTareas = JSON.parse(localStorage.getItem("listaDeTareas")) || [];
     listaItems.innerHTML = "";
     for (const tareaLista of listaDeTareas) {
-        listaItems.innerHTML +=`<p class="itemDeLista"><button class="botonItem" id="botonCumplido">✔️</button><span class="textoItem">${tareaLista}</span><button class="botonItem" id="botonEliminar">❌</button></p>`;    
+        listaItems.innerHTML +=`<p class="itemDeLista" id="itemN${listaDeTareas.indexOf(tareaLista)}"><button class="botonItem" id="botonCumplidoN${listaDeTareas.indexOf(tareaLista)}">✔️</button><span class="textoItem">${tareaLista}</span><button class="botonItem" id="botonEliminarN${listaDeTareas.indexOf(tareaLista)}">❌</button></p>`;    
     }};
 
 //funcion para agregar la tarea al clickear el boton + o apretar ENTER
@@ -50,12 +50,75 @@ inputNT.addEventListener("keydown", (e) => {
     };
 }); //agregar tarea al apretar enter
 
+/* FALTA AGREGAR FUNCION A BOTONES CUMPLIR O ELIMINAR TAREA Y QUE PASEN AL HISTORIAL COMO CUMPLIDA O ELIMINADA */
+//Inicializar historial de tareas desde localStorage
+let historialTareas = JSON.parse(localStorage.getItem("historialTareas")) || [];
+
+//Contenedor para todas las tareas del historial
+let listaHistorial = document.getElementById("itemsHistorial");
+
+// Función imprimir historial cargado desde localStorage
+const imprimirHistorial = () => {
+    historialTareas = JSON.parse(localStorage.getItem("historialTareas")) || [];
+    console.log(listaHistorial)
+    listaHistorial.innerHTML = "";
+    historialTareas.forEach(t => {
+        listaHistorial.innerHTML += `
+        <p class="historialItem">
+            <span>[${t.estado}]</span> ${t.texto}
+        </p>`;
+    });
+};
+
+// Evento para eliminar o cumplir una tarea según el botón que apriete y haga la acción sobre esa tarea en específico
+listaItems.addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON") {
+        let id = e.target.id; // ej: botonCumplidoN0
+        let index = parseInt(id.replace(/\D/g, "")); // saco el número
+        let estado = id.includes("Cumplido") ? "cumplida" : "eliminada";
+        let texto = listaDeTareas[index];
+
+        // 1. Borro del array principal
+        listaDeTareas.splice(index, 1);
+        localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas));
+        imprimirLista();
+
+        // 2. Agrego al historial
+        historialTareas.unshift({ texto, estado });
+        if (historialTareas.length > 8) historialTareas.pop();
+        localStorage.setItem("historialTareas", JSON.stringify(historialTareas));
+        imprimirHistorial();
+    }
+});
+
+//Ejecutar ambas funciones de historial y lista activa
+imprimirLista();
+imprimirHistorial();
+
+//Para responsive max-width: 700px
+let botonDesplegar = document.getElementById("botonDesplegar");
+let botonRetraer = document.getElementById("botonRetraer");
+let itemsHistorial = document.getElementById("itemsHistorial");
+
+botonDesplegar.addEventListener("click", ()=>{
+    itemsHistorial.className = "itemsHistorial";
+    botonDesplegar.className = "botonDesplegar none";
+    botonRetraer.className = "botonRetraer";
+})
+
+botonRetraer.addEventListener("click", ()=>{
+    itemsHistorial.className = "itemsHistorial none";
+    botonDesplegar.className = "botonDesplegar block";
+    botonRetraer.className = "botonRetraer none";
+})
+
 //Funcion click a tarjetas secciones
 tareas.addEventListener("click", ()=>{
     apps.className = "apps none";
     seccionTareas.className = "seccionTareas";
     inputNT.value = "";
     imprimirLista();
+    imprimirHistorial();
 });
 
 calc.addEventListener("click", ()=>{
