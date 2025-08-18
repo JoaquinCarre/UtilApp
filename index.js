@@ -27,7 +27,7 @@ let listaItems = document.getElementById("itemsLista");
 const imprimirLista = () => {
     listaItems.innerHTML = "";
     for (const tareaLista of listaDeTareas) {
-        listaItems.innerHTML +=`<p>${tareaLista}</p>`;    
+        listaItems.innerHTML +=`<p class="itemDeLista"><button class="botonItem" id="botonCumplido">✔️</button><span class="textoItem">${tareaLista}</span><button class="botonItem" id="botonEliminar">❌</button></p>`;    
     }};
 
 botonAgregar.addEventListener("click",()=>{
@@ -64,19 +64,19 @@ pintar.addEventListener("click", ()=>{
 btnVolverTareas.addEventListener("click", ()=>{
     apps.className = "apps";
     seccionTareas.className = "seccionTareas none";
-})
+});
 
 btnVolverCalc.addEventListener("click", ()=>{
     apps.className = "apps";
     seccionCalc.className = "seccionCalc none";
-})
+});
 
 btnVolverReloj.addEventListener("click", ()=>{
     apps.className = "apps";
     seccionReloj.className = "seccionReloj none";
-})
+});
 
 btnVolverPintar.addEventListener("click", ()=>{
     apps.className = "apps";
     seccionPintar.className = "seccionPintar none";
-})
+});

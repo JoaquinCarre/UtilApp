@@ -100,14 +100,17 @@ main {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
+    gap: 16px;
     padding: 30px 40px;
 }
 
+/* columna agregar nuevas tareas e historial de tareas */
 .boxNTH {
     display: flex;
     flex-direction: column;
-
     flex-wrap: nowrap;
+    min-height: 0; /* para que el hijo .itemsHistorial no se salga del div padre en altura */
+    min-width: 0; /* para que el hijo .itemsHistorial no se salga del div padre en ancho */
 }
 
 .divRelative {
@@ -131,8 +134,43 @@ main {
     border-radius: 0px 6px 6px 0px;
 }
 
+.itemsHistorial {
+    overflow: auto; 
+    min-height: 0; /* para que no se salga del div padre en altura */
+    min-width: 0; /* para que no se salga del div padre en ancho */
+}
+
+/* Columna lista de tareas */
+.colLista {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+}
+
 .itemsLista {
-    /*hacer que el box se mantenga en el recuadro y las listas que no se vean, deba scrollearse hacia abajo*/
+    overflow: auto;
+    min-height: 0; 
+    min-width: 0;
+}
+
+.itemDeLista {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: self-start;
+    padding: 10px 0;
+}
+
+.botonItem {
+    height: 25px;
+    width: 25px;
+    border-radius: 6px;
+}
+
+.textoItem {
+    word-break: break-word; /* fuerza el salto de línea si la palabra es muy larga */
+    overflow-wrap: break-word; /* soporte adicional para wrap de texto */
 }
 
 .botonMPTareas {
