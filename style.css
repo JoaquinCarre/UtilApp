@@ -132,6 +132,34 @@ main {
     width: 30px;
     height: 30px;
     border-radius: 0px 6px 6px 0px;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.tituloHistorial {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.iconoAdvertencia {
+    position: relative;
+}
+
+.mensajeHistorial {
+    position: absolute;
+    top: 0;
+    background-color: #323539;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+    z-index: 10;
+    font-size: 12px;
+}
+
+.iconoAdvertencia:hover .mensajeHistorial {
+    display: block;
 }
 
 .itemsHistorial {

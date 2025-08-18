@@ -25,17 +25,30 @@ let listaItems = document.getElementById("itemsLista");
 
 //función imprimir lista cargada de localStorage
 const imprimirLista = () => {
+    let listaDeTareas = JSON.parse(localStorage.getItem("listaDeTareas")) || [];
     listaItems.innerHTML = "";
     for (const tareaLista of listaDeTareas) {
         listaItems.innerHTML +=`<p class="itemDeLista"><button class="botonItem" id="botonCumplido">✔️</button><span class="textoItem">${tareaLista}</span><button class="botonItem" id="botonEliminar">❌</button></p>`;    
     }};
 
-botonAgregar.addEventListener("click",()=>{
-    listaDeTareas.unshift(inputNT.value);       // agrego nueva tarea al array global
-    localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas));  //guardo array nuevo en localStorage
-    imprimirLista();  // refresco la lista en pantalla
-    inputNT.value = "";  // refresco el input
-});
+//funcion para agregar la tarea al clickear el boton + o apretar ENTER
+function agregarTarea() {
+    const texto = inputNT.value.trim();
+    if (texto) {
+        listaDeTareas.unshift(texto); // agrego nueva tarea al array global      
+        localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas));
+        imprimirLista(); // refresco la lista en pantalla
+    }
+    inputNT.value = ""; // refresco el input
+};
+
+botonAgregar.addEventListener("click", agregarTarea); //agregar tarea al clickear el boton
+
+inputNT.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        agregarTarea()
+    };
+}); //agregar tarea al apretar enter
 
 //Funcion click a tarjetas secciones
 tareas.addEventListener("click", ()=>{
