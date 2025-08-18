@@ -23,12 +23,16 @@ let inputNT = document.getElementById("inputAgregar");
 let botonAgregar = document.getElementById("botonAgregar");
 let listaItems = document.getElementById("itemsLista");
 
+//Reemplazo de caracteres para que no me estorben en el codigo HTML al inyectarnos con el innerHTML
+function escaparHTML(texto) {
+    return texto.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}   
 //función imprimir lista cargada de localStorage
 const imprimirLista = () => {
     let listaDeTareas = JSON.parse(localStorage.getItem("listaDeTareas")) || [];
     listaItems.innerHTML = "";
     for (const tareaLista of listaDeTareas) {
-        listaItems.innerHTML +=`<p class="itemDeLista" id="itemN${listaDeTareas.indexOf(tareaLista)}"><button class="botonItem" id="botonCumplidoN${listaDeTareas.indexOf(tareaLista)}">✔️</button><span class="textoItem">${tareaLista}</span><button class="botonItem" id="botonEliminarN${listaDeTareas.indexOf(tareaLista)}">❌</button></p>`;    
+        listaItems.innerHTML +=`<p class="itemDeLista" id="itemN${listaDeTareas.indexOf(tareaLista)}"><button class="botonItem" id="botonCumplidoN${listaDeTareas.indexOf(tareaLista)}">✔️</button><span class="textoItem">${tareaLista.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}</span><button class="botonItem" id="botonEliminarN${listaDeTareas.indexOf(tareaLista)}">❌</button></p>`;    
     }};
 
 //funcion para agregar la tarea al clickear el boton + o apretar ENTER
@@ -60,30 +64,26 @@ let listaHistorial = document.getElementById("itemsHistorial");
 // Función imprimir historial cargado desde localStorage
 const imprimirHistorial = () => {
     historialTareas = JSON.parse(localStorage.getItem("historialTareas")) || [];
-    console.log(listaHistorial)
     listaHistorial.innerHTML = "";
-    historialTareas.forEach(t => {
-        listaHistorial.innerHTML += `
-        <p class="historialItem">
-            <span>[${t.estado}]</span> ${t.texto}
-        </p>`;
+    historialTareas.forEach(item => {
+        listaHistorial.innerHTML += `<p class="historialItem"><span>(${item.estado})</span> ${item.texto.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}</p>`;
     });
 };
 
 // Evento para eliminar o cumplir una tarea según el botón que apriete y haga la acción sobre esa tarea en específico
 listaItems.addEventListener("click", (e) => {
     if (e.target.tagName === "BUTTON") {
-        let id = e.target.id; // ej: botonCumplidoN0
-        let index = parseInt(id.replace(/\D/g, "")); // saco el número
+        let id = e.target.id;
+        let index = parseInt(id.replace(/\D/g, "")); // obtengo el numero del index de la tarea eliminada/cumplida siendo \D → “cualquier carácter que NO sea un dígito” y g → el flag global, que busca todas las coincidencias, no solo la primera. Con ello reemplaza todos los caracteres que no sean números por "".
         let estado = id.includes("Cumplido") ? "cumplida" : "eliminada";
         let texto = listaDeTareas[index];
 
-        // 1. Borro del array principal
+        // Borro del array principal
         listaDeTareas.splice(index, 1);
         localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas));
         imprimirLista();
 
-        // 2. Agrego al historial
+        // Agrego al historial
         historialTareas.unshift({ texto, estado });
         if (historialTareas.length > 8) historialTareas.pop();
         localStorage.setItem("historialTareas", JSON.stringify(historialTareas));
