@@ -199,6 +199,18 @@ main {
     flex-direction: column;
     min-height: 0;
     min-width: 0;
+    position: relative;
+}
+
+.botonEliminarTodo {
+    position: absolute;
+    bottom: 0;
+    background-color: red;
+    padding: 5px;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .itemsLista {

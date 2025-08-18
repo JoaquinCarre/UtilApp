@@ -29,7 +29,7 @@ function escaparHTML(texto) {
 }   
 //función imprimir lista cargada de localStorage
 const imprimirLista = () => {
-    let listaDeTareas = JSON.parse(localStorage.getItem("listaDeTareas")) || [];
+    listaDeTareas = JSON.parse(localStorage.getItem("listaDeTareas")) || [];
     listaItems.innerHTML = "";
     for (const tareaLista of listaDeTareas) {
         listaItems.innerHTML +=`<p class="itemDeLista" id="itemN${listaDeTareas.indexOf(tareaLista)}"><button class="botonItem" id="botonCumplidoN${listaDeTareas.indexOf(tareaLista)}">✔️</button><span class="textoItem">${tareaLista.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;")}</span><button class="botonItem" id="botonEliminarN${listaDeTareas.indexOf(tareaLista)}">❌</button></p>`;    
@@ -37,6 +37,7 @@ const imprimirLista = () => {
 
 //funcion para agregar la tarea al clickear el boton + o apretar ENTER
 function agregarTarea() {
+    listaDeTareas = JSON.parse(localStorage.getItem("listaDeTareas")) || [];
     const texto = inputNT.value.trim();
     if (texto) {
         listaDeTareas.unshift(texto); // agrego nueva tarea al array global      
@@ -94,6 +95,15 @@ listaItems.addEventListener("click", (e) => {
 //Ejecutar ambas funciones de historial y lista activa
 imprimirLista();
 imprimirHistorial();
+
+//Boton para eliminar todo el localStorage
+let botonEliminarTodo = document.getElementById("botonEliminarTodo");
+
+botonEliminarTodo.addEventListener("click", ()=>{
+    localStorage.clear();
+    listaItems.innerHTML = "";
+    listaHistorial.innerHTML = "";
+})
 
 //Para responsive max-width: 700px
 let botonDesplegar = document.getElementById("botonDesplegar");
