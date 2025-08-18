@@ -15,10 +15,34 @@ let btnVolverCalc = document.getElementById("menuPrincipalCalc");
 let btnVolverReloj = document.getElementById("menuPrincipalReloj");
 let btnVolverPintar = document.getElementById("menuPrincipalPintar");
 
+//Inicializar lista de tareas desde localStorage
+let listaDeTareas = JSON.parse(localStorage.getItem("listaDeTareas")) || [];
+
+//Inicializar nueva tarea y agregarla
+let inputNT = document.getElementById("inputAgregar");
+let botonAgregar = document.getElementById("botonAgregar");
+let listaItems = document.getElementById("itemsLista");
+
+//función imprimir lista cargada de localStorage
+const imprimirLista = () => {
+    listaItems.innerHTML = "";
+    for (const tareaLista of listaDeTareas) {
+        listaItems.innerHTML +=`<p>${tareaLista}</p>`;    
+    }};
+
+botonAgregar.addEventListener("click",()=>{
+    listaDeTareas.unshift(inputNT.value);       // agrego nueva tarea al array global
+    localStorage.setItem("listaDeTareas", JSON.stringify(listaDeTareas));  //guardo array nuevo en localStorage
+    imprimirLista();  // refresco la lista en pantalla
+    inputNT.value = "";  // refresco el input
+});
+
 //Funcion click a tarjetas secciones
 tareas.addEventListener("click", ()=>{
     apps.className = "apps none";
     seccionTareas.className = "seccionTareas";
+    inputNT.value = "";
+    imprimirLista();
 });
 
 calc.addEventListener("click", ()=>{
@@ -55,14 +79,4 @@ btnVolverReloj.addEventListener("click", ()=>{
 btnVolverPintar.addEventListener("click", ()=>{
     apps.className = "apps";
     seccionPintar.className = "seccionPintar none";
-})
-
-//Inicializar nueva tarea y agregarla
-let inputNT = document.getElementById("inputAgregar");
-let botonAgregar = document.getElementById("botonAgregar");
-let listaItems = document.getElementById("itemsLista");
-
-botonAgregar.addEventListener("click",()=>{
-    //usar storage para cargar las tareas guardadas y añadirle la nueva y volver a guardar todo
-    listaItems.innerHTML=`<p>${inputNT.value}</p>`;
 })
